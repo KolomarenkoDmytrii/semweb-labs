@@ -1,0 +1,158 @@
+@prefix schema: <https://schema.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://mygames.xyz/games/elden-ring> a schema:VideoGame ;
+    schema:author <http://mygames.xyz/developers/fromsoftware> ;
+    schema:gamePlatform <http://mygames.xyz/platforms/pc>,
+        <http://mygames.xyz/platforms/playstation-5>,
+        <http://mygames.xyz/platforms/xbox-series-x-s> ;
+    schema:genre <http://mygames.xyz/genres/action-rpg> ;
+    schema:name "Elden Ring" ;
+    schema:reviewRating <http://mygames.xyz/ratings/elden-ring> .
+
+<http://mygames.xyz/games/minecraft> a schema:VideoGame ;
+    schema:author <http://mygames.xyz/developers/mojang-studios> ;
+    schema:gamePlatform <http://mygames.xyz/platforms/nintendo-switch>,
+        <http://mygames.xyz/platforms/pc>,
+        <http://mygames.xyz/platforms/playstation>,
+        <http://mygames.xyz/platforms/xbox> ;
+    schema:genre <http://mygames.xyz/genres/sandbox> ;
+    schema:name "Minecraft" ;
+    schema:reviewRating <http://mygames.xyz/ratings/minecraft> .
+
+<http://mygames.xyz/games/portal-2> a schema:VideoGame ;
+    schema:author <http://mygames.xyz/developers/valve> ;
+    schema:gamePlatform <http://mygames.xyz/platforms/pc>,
+        <http://mygames.xyz/platforms/playstation-3>,
+        <http://mygames.xyz/platforms/xbox-360> ;
+    schema:genre <http://mygames.xyz/genres/puzzle> ;
+    schema:name "Portal 2" ;
+    schema:reviewRating <http://mygames.xyz/ratings/portal-2> .
+
+<http://mygames.xyz/games/stardew-valley> a schema:VideoGame ;
+    schema:author <http://mygames.xyz/developers/concernedape> ;
+    schema:gamePlatform <http://mygames.xyz/platforms/nintendo-switch>,
+        <http://mygames.xyz/platforms/pc>,
+        <http://mygames.xyz/platforms/playstation-4>,
+        <http://mygames.xyz/platforms/xbox-one> ;
+    schema:genre <http://mygames.xyz/genres/simulation> ;
+    schema:name "Stardew Valley" ;
+    schema:reviewRating <http://mygames.xyz/ratings/stardew-valley> .
+
+<http://mygames.xyz/games/test-adventure> a schema:VideoGame ;
+    schema:author <http://mygames.xyz/developers/test-studio> ;
+    schema:gamePlatform <http://mygames.xyz/platforms/pc>,
+        <http://mygames.xyz/platforms/xbox> ;
+    schema:genre <http://mygames.xyz/genres/adventure> ;
+    schema:name "test-adventure" ;
+    schema:reviewRating <http://mygames.xyz/ratings/test-adventure> .
+
+<http://mygames.xyz/games/tetris> a schema:VideoGame ;
+    schema:author <http://mygames.xyz/developers/alexey-pajitnov> ;
+    schema:gamePlatform <http://mygames.xyz/platforms/pc> ;
+    schema:genre <http://mygames.xyz/genres/puzzle> ;
+    schema:name "Tetris" ;
+    schema:reviewRating <http://mygames.xyz/ratings/tetris> .
+
+<http://mygames.xyz/developers/alexey-pajitnov> a schema:Organization ;
+    schema:name "Alexey Pajitnov" .
+
+<http://mygames.xyz/developers/concernedape> a schema:Organization ;
+    schema:name "ConcernedApe" .
+
+<http://mygames.xyz/developers/fromsoftware> a schema:Organization ;
+    schema:name "FromSoftware" .
+
+<http://mygames.xyz/developers/mojang-studios> a schema:Organization ;
+    schema:name "Mojang Studios" .
+
+<http://mygames.xyz/developers/test-studio> a schema:Organization ;
+    schema:name "Test Studio" .
+
+<http://mygames.xyz/developers/valve> a schema:Organization ;
+    schema:name "Valve" .
+
+<http://mygames.xyz/genres/action-rpg> a schema:DefinedTerm ;
+    schema:name "action-rpg" .
+
+<http://mygames.xyz/genres/adventure> a schema:DefinedTerm ;
+    schema:name "Adventure" .
+
+<http://mygames.xyz/genres/sandbox> a schema:DefinedTerm ;
+    schema:name "sandbox" .
+
+<http://mygames.xyz/genres/simulation> a schema:DefinedTerm ;
+    schema:name "simulation" .
+
+<http://mygames.xyz/platforms/playstation> a schema:Thing ;
+    schema:name "PlayStation" .
+
+<http://mygames.xyz/platforms/playstation-3> a schema:Thing ;
+    schema:name "PlayStation 3" .
+
+<http://mygames.xyz/platforms/playstation-4> a schema:Thing ;
+    schema:name "PlayStation 4" .
+
+<http://mygames.xyz/platforms/playstation-5> a schema:Thing ;
+    schema:name "PlayStation 5" .
+
+<http://mygames.xyz/platforms/xbox-360> a schema:Thing ;
+    schema:name "Xbox 360" .
+
+<http://mygames.xyz/platforms/xbox-one> a schema:Thing ;
+    schema:name "Xbox One" .
+
+<http://mygames.xyz/platforms/xbox-series-x-s> a schema:Thing ;
+    schema:name "Xbox Series X/S" .
+
+<http://mygames.xyz/ratings/elden-ring> a schema:Rating ;
+    schema:ratingValue 96 .
+
+<http://mygames.xyz/ratings/minecraft> a schema:Rating ;
+    schema:ratingValue 93 .
+
+<http://mygames.xyz/ratings/portal-2> a schema:Rating ;
+    schema:ratingValue 95 .
+
+<http://mygames.xyz/ratings/stardew-valley> a schema:Rating ;
+    schema:ratingValue 89 .
+
+<http://mygames.xyz/ratings/test-adventure> a schema:Rating ;
+    schema:ratingValue 20 .
+
+<http://mygames.xyz/ratings/tetris> a schema:Rating ;
+    schema:ratingValue 85 .
+
+<http://mygames.xyz/genres/puzzle> a schema:DefinedTerm ;
+    schema:name "puzzle" .
+
+<http://mygames.xyz/platforms/nintendo-switch> a schema:Thing ;
+    schema:name "Nintendo Switch" .
+
+<http://mygames.xyz/platforms/xbox> a schema:Thing ;
+    schema:name "Xbox" .
+
+<http://mygames.xyz/platforms/pc> a schema:Thing ;
+    schema:name "PC" .
+
+
+<http://mygames.xyz/games/doom> a schema:VideoGame ;
+    schema:author <http://mygames.xyz/developers/id-software> ;
+    schema:gamePlatform <http://mygames.xyz/platforms/pc>,
+        <http://mygames.xyz/platforms/dos> ;
+    schema:genre <http://mygames.xyz/genres/shooter> ;
+    schema:name "Doom" ;
+    schema:reviewRating <http://mygames.xyz/ratings/doom> .
+
+<http://mygames.xyz/developers/id-software> a schema:Organization ;
+    schema:name "id Software" .
+
+<http://mygames.xyz/genres/shooter> a schema:DefinedTerm ;
+    schema:name "shooter" .
+
+<http://mygames.xyz/ratings/doom> a schema:Rating ;
+    schema:ratingValue 82 .
+
+<http://mygames.xyz/platforms/dos> a schema:Thing ;
+    schema:name "DOS" .
+    

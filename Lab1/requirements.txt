@@ -1,4 +1,2 @@
 rdflib
-pydotplus
-graphviz
 pyvis

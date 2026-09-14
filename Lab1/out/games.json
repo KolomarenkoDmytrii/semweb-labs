@@ -1,0 +1,524 @@
+[
+  {
+    "@id": "http://mygames.xyz/ratings/stardew-valley",
+    "@type": [
+      "https://schema.org/Rating"
+    ],
+    "https://schema.org/ratingValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 89
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/games/tetris",
+    "@type": [
+      "https://schema.org/VideoGame"
+    ],
+    "https://schema.org/author": [
+      {
+        "@id": "http://mygames.xyz/developers/alexey-pajitnov"
+      }
+    ],
+    "https://schema.org/gamePlatform": [
+      {
+        "@id": "http://mygames.xyz/platforms/pc"
+      }
+    ],
+    "https://schema.org/genre": [
+      {
+        "@id": "http://mygames.xyz/genres/puzzle"
+      }
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Tetris"
+      }
+    ],
+    "https://schema.org/reviewRating": [
+      {
+        "@id": "http://mygames.xyz/ratings/tetris"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/developers/test-studio",
+    "@type": [
+      "https://schema.org/Organization"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Test Studio"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/genres/puzzle",
+    "@type": [
+      "https://schema.org/DefinedTerm"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "puzzle"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/ratings/tetris",
+    "@type": [
+      "https://schema.org/Rating"
+    ],
+    "https://schema.org/ratingValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 85
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/xbox-360",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Xbox 360"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/nintendo-switch",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Nintendo Switch"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/playstation",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "PlayStation"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/ratings/elden-ring",
+    "@type": [
+      "https://schema.org/Rating"
+    ],
+    "https://schema.org/ratingValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 96
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/developers/alexey-pajitnov",
+    "@type": [
+      "https://schema.org/Organization"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Alexey Pajitnov"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/xbox-series-x-s",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Xbox Series X/S"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/xbox",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Xbox"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/pc",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "PC"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/ratings/test-adventure",
+    "@type": [
+      "https://schema.org/Rating"
+    ],
+    "https://schema.org/ratingValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 20
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/games/elden-ring",
+    "@type": [
+      "https://schema.org/VideoGame"
+    ],
+    "https://schema.org/author": [
+      {
+        "@id": "http://mygames.xyz/developers/fromsoftware"
+      }
+    ],
+    "https://schema.org/gamePlatform": [
+      {
+        "@id": "http://mygames.xyz/platforms/pc"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/playstation-5"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/xbox-series-x-s"
+      }
+    ],
+    "https://schema.org/genre": [
+      {
+        "@id": "http://mygames.xyz/genres/action-rpg"
+      }
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Elden Ring"
+      }
+    ],
+    "https://schema.org/reviewRating": [
+      {
+        "@id": "http://mygames.xyz/ratings/elden-ring"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/genres/adventure",
+    "@type": [
+      "https://schema.org/DefinedTerm"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Adventure"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/playstation-3",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "PlayStation 3"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/developers/mojang-studios",
+    "@type": [
+      "https://schema.org/Organization"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Mojang Studios"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/games/portal-2",
+    "@type": [
+      "https://schema.org/VideoGame"
+    ],
+    "https://schema.org/author": [
+      {
+        "@id": "http://mygames.xyz/developers/valve"
+      }
+    ],
+    "https://schema.org/gamePlatform": [
+      {
+        "@id": "http://mygames.xyz/platforms/pc"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/playstation-3"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/xbox-360"
+      }
+    ],
+    "https://schema.org/genre": [
+      {
+        "@id": "http://mygames.xyz/genres/puzzle"
+      }
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Portal 2"
+      }
+    ],
+    "https://schema.org/reviewRating": [
+      {
+        "@id": "http://mygames.xyz/ratings/portal-2"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/genres/sandbox",
+    "@type": [
+      "https://schema.org/DefinedTerm"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "sandbox"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/developers/valve",
+    "@type": [
+      "https://schema.org/Organization"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Valve"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/games/test-adventure",
+    "@type": [
+      "https://schema.org/VideoGame"
+    ],
+    "https://schema.org/author": [
+      {
+        "@id": "http://mygames.xyz/developers/test-studio"
+      }
+    ],
+    "https://schema.org/gamePlatform": [
+      {
+        "@id": "http://mygames.xyz/platforms/pc"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/xbox"
+      }
+    ],
+    "https://schema.org/genre": [
+      {
+        "@id": "http://mygames.xyz/genres/adventure"
+      }
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "test-adventure"
+      }
+    ],
+    "https://schema.org/reviewRating": [
+      {
+        "@id": "http://mygames.xyz/ratings/test-adventure"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/genres/action-rpg",
+    "@type": [
+      "https://schema.org/DefinedTerm"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "action-rpg"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/playstation-5",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "PlayStation 5"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/ratings/portal-2",
+    "@type": [
+      "https://schema.org/Rating"
+    ],
+    "https://schema.org/ratingValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 95
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/playstation-4",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "PlayStation 4"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/games/stardew-valley",
+    "@type": [
+      "https://schema.org/VideoGame"
+    ],
+    "https://schema.org/author": [
+      {
+        "@id": "http://mygames.xyz/developers/concernedape"
+      }
+    ],
+    "https://schema.org/gamePlatform": [
+      {
+        "@id": "http://mygames.xyz/platforms/pc"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/nintendo-switch"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/playstation-4"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/xbox-one"
+      }
+    ],
+    "https://schema.org/genre": [
+      {
+        "@id": "http://mygames.xyz/genres/simulation"
+      }
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Stardew Valley"
+      }
+    ],
+    "https://schema.org/reviewRating": [
+      {
+        "@id": "http://mygames.xyz/ratings/stardew-valley"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/developers/fromsoftware",
+    "@type": [
+      "https://schema.org/Organization"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "FromSoftware"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/platforms/xbox-one",
+    "@type": [
+      "https://schema.org/Thing"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Xbox One"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/ratings/minecraft",
+    "@type": [
+      "https://schema.org/Rating"
+    ],
+    "https://schema.org/ratingValue": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#integer",
+        "@value": 93
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/developers/concernedape",
+    "@type": [
+      "https://schema.org/Organization"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "ConcernedApe"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/games/minecraft",
+    "@type": [
+      "https://schema.org/VideoGame"
+    ],
+    "https://schema.org/author": [
+      {
+        "@id": "http://mygames.xyz/developers/mojang-studios"
+      }
+    ],
+    "https://schema.org/gamePlatform": [
+      {
+        "@id": "http://mygames.xyz/platforms/pc"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/playstation"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/xbox"
+      },
+      {
+        "@id": "http://mygames.xyz/platforms/nintendo-switch"
+      }
+    ],
+    "https://schema.org/genre": [
+      {
+        "@id": "http://mygames.xyz/genres/sandbox"
+      }
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "Minecraft"
+      }
+    ],
+    "https://schema.org/reviewRating": [
+      {
+        "@id": "http://mygames.xyz/ratings/minecraft"
+      }
+    ]
+  },
+  {
+    "@id": "http://mygames.xyz/genres/simulation",
+    "@type": [
+      "https://schema.org/DefinedTerm"
+    ],
+    "https://schema.org/name": [
+      {
+        "@value": "simulation"
+      }
+    ]
+  }
+]
