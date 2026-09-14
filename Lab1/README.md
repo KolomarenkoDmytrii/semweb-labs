@@ -17,14 +17,16 @@
 ## Приклади RDF-трійок
 
 - Назва гри: `(URIRef(http://mygames.xyz/games/elden-ring), sdo:name, "Elden Ring")`
-- Оцінка конкретної гри: `(URIRef(http://mygames.xyz/ratings/minecraft), sdo:ratingValue, 93)
+- Оцінка конкретної гри: `(URIRef(http://mygames.xyz/ratings/minecraft), sdo:ratingValue, 93)`
 - Платформа, на яку гру було випущено `(URIRef(http://mygames.xyz/games/elden-ring), sdo:gamePlatform, URIRef(http://mygames.xyz/platforms/pc))`
 
 ## Turtle-файл графу і його візуалізація
 
-Посилання: (файл)[file://./out/games.ttl]
+Посилання: (файл)[https://github.com/KolomarenkoDmytrii/semweb-labs/blob/main/Lab1/out/games.ttl]
 
-Візуалізація: (посилання)[file://./out/rdf_graph.html]
+Візуалізація: (посилання)[https://github.com/KolomarenkoDmytrii/semweb-labs/blob/main/Lab1/out/rdf_graph.html]
+
+![Візуалізація частини графу](https://github.com/KolomarenkoDmytrii/semweb-labs/blob/main/Lab1/out/graph-visualization.png?raw=true)
 
 ## SPARQL-запити
 
