@@ -22,9 +22,9 @@
 
 ## Turtle-файл графу і його візуалізація
 
-Посилання: (файл)[https://github.com/KolomarenkoDmytrii/semweb-labs/blob/main/Lab1/out/games.ttl]
+Посилання: [файл](https://github.com/KolomarenkoDmytrii/semweb-labs/blob/main/Lab1/out/games.ttl)
 
-Візуалізація: (посилання)[https://github.com/KolomarenkoDmytrii/semweb-labs/blob/main/Lab1/out/rdf_graph.html]
+Візуалізація: [посилання](https://github.com/KolomarenkoDmytrii/semweb-labs/blob/main/Lab1/out/rdf_graph.html)
 
 ![Візуалізація частини графу](https://github.com/KolomarenkoDmytrii/semweb-labs/blob/main/Lab1/out/graph-visualization.png?raw=true)
 
