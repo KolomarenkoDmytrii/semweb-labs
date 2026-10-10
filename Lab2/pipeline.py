@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-from extract import extract_knowledge
+from extract import extract_knowledge_to_file
 from vector_search import run_vector_search
 from graph_rag import run_graph_rag
 
@@ -19,8 +19,8 @@ if __name__ == "__main__":
 
     # 1. Екстракція фактів
     # run_script("extract.py")
-    print("=== 1. Екстракція фактів ===")
-    extract_knowledge()
+    #print("=== 1. Екстракція фактів ===")
+    #extract_knowledge_to_file()
 
     # 2. Векторний пошук
     # run_script("vector_search.py")

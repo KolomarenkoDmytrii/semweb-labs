@@ -2,6 +2,7 @@ import json
 import os
 import time
 import random
+from pathlib import Path
 
 from ollama import chat
 from json_repair import repair_json  # Автоматично виправляє обірваний JSON
@@ -72,25 +73,34 @@ def call_ollama_with_retry(
             delay *= 2
 
 
-def extract_knowledge():
-    print("[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e2b)...")
+def extract_knowledge(text):
+    print("[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...")
 
     json_schema = ExtractionResult.model_json_schema()
-    prompt = (
-        "Проаналізуй наступний корпус текстів і видобуди з нього структуровані факти. "
-        "Сформуй не менше 30 детальних фактів (subject, relation, object, description), "
-        "використовуючи сутності типу Technology, Organization, Person, Location та зв'язки між ними. "
-        f"Відповідь поверни виключно у форматі JSON, що відповідає такій схемі: {json.dumps(json_schema, ensure_ascii=False)}\n\n"
-        f"Корпус текстів:\n{CORPUS}"
-    )
+    # https://medium.com/data-science-collective/how-to-build-a-multi-source-knowledge-graph-extractor-from-scratch-60f0a51e17b5
+    prompt = f"""
+You are an expert assistant automatizing knowledge graph creation from text. You are provided a text passage and some allowed entity types:  
+you are tasked with extracting relations between entities of the specified type from the provided passage.
+Guidelines:
+- Don't extract properties or attributes as entities but as a relationship
+- Entity names should be concise and contain all the necessary information to uniquely identify the entity
+- Keep entity names consistent: the same entity should have the same name in all the triplets it appears in
+- Necessarily use such relationships additonaly to other basing on your judgement: 
+'used_for', 'provides', 'used_together_with', 'provides_concepts', 'is_subentity_of', '
+influences_to', 'provides_ability', etc
+
+Return response in JSON format only that follows the following scheme: 
+{json.dumps(json_schema, ensure_ascii=False)}
+
+Text:\n{text}"""
 
     def _make_call():
         response = chat(
-            model="gemma4:e2b",
+            model="gemma4:e4b",
             messages=[{"role": "user", "content": prompt}],
             format=json_schema,
             options={
-                "num_predict": 127000  # Збільшуємо ліміт токенів на відповідь, щоб JSON не обривався
+                "num_predict": 128000  # Збільшуємо ліміт токенів на відповідь, щоб JSON не обривався
             },
         )
         return response.message.content
@@ -110,11 +120,25 @@ def extract_knowledge():
         repaired_json_str = repair_json(response_text)
         result_data = json.loads(repaired_json_str)
 
-    with open("facts.json", "w", encoding="utf-8") as f:
-        json.dump(result_data, f, ensure_ascii=False, indent=2)
+    return result_data
 
-    print(f"[+] Екстракцію завершено. Збережено фактів у файл facts.json.")
+    # with open("facts.json", "w", encoding="utf-8") as f:
+    #     json.dump(result_data, f, ensure_ascii=False, indent=2)
+
+    # print(f"[+] Екстракцію завершено. Збережено фактів у файл facts.json.")
+
+
+def extract_knowledge_to_file():
+    docs_dir = Path("docs")
+    extracted_data = dict()
+    for doc_file in docs_dir.iterdir():
+        print(f"[*] Екстракція даних з {doc_file.name}")
+        extracted_data |= extract_knowledge(doc_file.read_text())
+
+    with open("facts.json", "w", encoding="utf-8") as f:
+        json.dump(extracted_data, f, ensure_ascii=False, indent=2)
+    print(f"[+] Екстракцію завершено. Збережено факти у файл facts.json.")
 
 
 if __name__ == "__main__":
-    extract_knowledge()
+    extract_knowledge_to_file()

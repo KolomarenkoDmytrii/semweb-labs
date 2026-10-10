@@ -1,5 +1,7 @@
 import time
 import random
+from pathlib import Path
+
 from ollama import embed
 import chromadb
 
@@ -47,22 +49,28 @@ def run_vector_search():
         "[*] Ініціалізація векторної бази даних ChromaDB та генерація ембедингів через Ollama (embeddinggemma-2:440m)..."
     )
     chroma_client = chromadb.Client()
-    collection = chroma_client.get_or_create_collection(name="smart_city_docs")
+    collection = chroma_client.get_or_create_collection(name="linux_kernel_docs")
 
-    for idx, doc in enumerate(DOCUMENTS):
-        emb = get_embedding(doc)
-        collection.upsert(ids=[f"doc_{idx}"], embeddings=[emb], documents=[doc])
+    for idx, doc in enumerate(Path("docs").iterdir()):
+        text = doc.read_text()
+        emb = get_embedding(text)
+        collection.upsert(ids=[f"doc_{idx}"], embeddings=[emb], documents=[text])
 
-    query = "Хто керує технічною частиною проєктів розумного міста?"
+    query = "For what spinlock_t is used?"
     print(f"\n[Пошуковий запит]: {query}")
 
     keyword_results = [
-        doc for doc in DOCUMENTS if "Андрій Мельник" in doc or "інженер" in doc.lower()
+        line
+        for doc_f in Path("docs").iterdir()
+        for line in doc_f.read_text().splitlines()
+        if "spinlock_t" in line or "spinlock" in line.lower()
     ]
     print("\n--- Результати Keyword-пошуку ---")
     for r in keyword_results:
         print(f" - {r}")
 
+    query = "Які примітиви є для багатопроцесорності?"
+    print(f"\n[Пошуковий запит]: {query}")
     query_emb = get_embedding(query)
     results = collection.query(query_embeddings=[query_emb], n_results=2)
     print("\n--- Результати Векторного (Семантичного) пошуку ---")

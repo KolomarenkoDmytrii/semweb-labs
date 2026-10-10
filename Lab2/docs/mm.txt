@@ -1,0 +1,179 @@
+Memory Management (mm/)
+
+    How Linux manages the most fundamental resource: memory
+
+Getting Started
+
+This documentation explains how Linux manages memory - not just the theory, but the actual implementation decisions, trade-offs, and lessons learned over 30+ years of development.
+Prerequisites
+
+This documentation assumes familiarity with:
+
+    C programming - The kernel is written in C
+    Pointers and memory addresses - Virtual vs physical addressing
+    Basic OS concepts - Processes, kernel vs userspace
+
+If you've covered virtual memory and paging, that's a good foundation. See Further Reading for recommended textbooks.
+Getting the Kernel Source
+
+git
+ clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+cd linux
+
+For building and configuration, see Documentation/admin-guide/README.rst.
+Running Tests
+
+The fastest way to test kernel changes without rebooting your machine:
+
+# Install virtme-ng (runs kernel in QEMU with your filesystem)
+pip
+ install virtme-ng
+
+# Build and boot with a test module
+virtme-ng
+ --kdir . --append 'test_vmalloc.run_test_mask=0xFFFF'
+
+# Check results
+# (dmesg output appears in the virtual console)
+
+For comprehensive testing documentation, see Documentation/dev-tools/testing-overview.rst.
+Suggested Reading Order
+
+Fundamentals:
+
+    Overview - The narrative of how mm/ evolved
+    Page Allocator - Buddy system fundamentals
+    Slab - SLUB allocator for small objects
+    vmalloc - Virtual memory allocation
+
+Address Translation & Process Memory:
+
+    Page Tables - Virtual address translation
+    The Kernel Address Space - Direct map, vmemmap, vmalloc space, KASLR
+    Process Address Space - VMAs, mmap, demand paging
+
+Memory Pressure & Reclaim:
+
+    Page Reclaim - LRU, kswapd, MGLRU
+    Swap - Extending memory to disk
+    Page Cache - File data caching
+
+Advanced Topics:
+
+    Memory Cgroups - Container memory limits
+    NUMA - Multi-node memory management
+    Transparent Huge Pages - Automatic huge pages
+    Compaction - Memory defragmentation
+    KSM - Page deduplication for VMs
+
+End-to-End Walkthroughs:
+
+After the fundamentals, these trace operations through the entire stack:
+
+    Life of a malloc - From userspace to physical page
+    Life of a page - Allocation through reclaim
+    What happens when you fork - COW mechanics
+    Running out of memory - The path to OOM kill
+    Life of a file read - Page cache in action
+    What happens during swapping - Swap-out and swap-in
+
+What You'll Learn
+Textbook Concept 	Linux Reality
+"malloc allocates memory" 	No - it reserves address space. Physical pages come later via demand paging
+"fork copies process memory" 	Copy-on-write means pages are shared until written
+"Page tables map virtual to physical" 	Multi-level page tables, TLB flushing costs, lazy creation
+"Memory allocator" 	Multiple allocators for different use cases (slab, vmalloc, buddy)
+"Fragmentation" 	Why physically contiguous memory is hard, vmalloc as a solution
+"Memory is finite" 	Watermarks, kswapd, direct reclaim, OOM killer - a progression, not a cliff
+"Reading files hits disk" 	Page cache means most reads are from memory
+"Swap is slow" 	Swap mechanics - understand when and why it hurts
+What Makes This Different
+
+    Real commits: Every claim links to actual kernel commits
+    Real bugs: Learn from what broke and why
+    Real discussions: Links to LKML where decisions were debated
+    Real trade-offs: Not just "what" but "why this and not that"
+    Hands-on: "Try It Yourself" sections with commands to run and code to read
+
+Documentation
+Core Reading
+Document 	What You'll Learn
+overview 	The 30-year story of Linux memory management
+page-allocator 	Buddy system - physical page management
+slab 	SLUB - small object allocation
+vmalloc 	Virtually contiguous allocation
+vrealloc 	Resizing allocations
+page-tables 	Virtual address translation
+kernel-address-space 	The kernel half: direct map, vmemmap, KASLR
+reclaim 	What happens under memory pressure
+memcg 	Container memory limits
+thp 	Transparent Huge Pages - automatic 2MB pages
+numa 	NUMA memory policies and balancing
+compaction 	Memory defragmentation for large allocations
+ksm 	Kernel Same-page Merging - memory deduplication
+mmap 	Process address space and VMAs
+page-cache 	File data caching in memory
+swap 	Extending memory to disk
+Lifecycle
+
+Narrative walkthroughs following memory operations end-to-end:
+Document 	What You'll Learn
+life-of-malloc 	Tracing malloc() from userspace to physical pages
+life-of-page 	A physical page's journey through allocation, use, and reclaim
+fork 	COW setup, page table copying, and COW fault handling
+oom 	Watermarks, kswapd, direct reclaim, and OOM killer
+life-of-read 	How read() flows through the page cache
+swapping 	Swap-out and swap-in mechanics in detail
+Explainers
+
+Conceptual guides for common memory management questions:
+Document 	What You'll Learn
+virtual-physical-resident 	VSZ vs RSS vs PSS vs USS - why memory numbers don't add up
+overcommit 	Why overcommit is the only sane default
+brk-vs-mmap 	Two ways to get memory from the kernel
+contiguous-memory 	Why large allocations fail despite free memory
+cow 	Copy-on-write edge cases and when it breaks
+Kernel Bugs & CVEs
+
+Analysis of notable Linux kernel vulnerabilities, data corruption bugs, and edge cases:
+Document 	What You'll Learn
+Bug Index 	Catalog of all mm bugs by severity, year, and subsystem
+SLUB Bugs 	Heap exploitation (CVE-2021-22555, CVE-2022-29582)
+THP Bugs 	khugepaged races, COW issues (CVE-2020-29368)
+Page Table Bugs 	Meltdown, Spectre, TLB flush races
+Key Source Files
+
+If you want to read the actual code:
+File 	What It Does
+mm/page_alloc.c 	Buddy allocator - physical page management
+mm/slub.c 	SLUB allocator - small object caches
+mm/vmalloc.c 	vmalloc - virtually contiguous allocation
+mm/vmscan.c 	Memory reclaim under pressure
+mm/memcontrol.c 	Memory cgroups
+mm/huge_memory.c 	Transparent Huge Pages
+mm/mempolicy.c 	NUMA memory policies
+mm/compaction.c 	Memory compaction
+mm/ksm.c 	Kernel Same-page Merging
+mm/mmap.c 	Process address space, VMAs
+mm/filemap.c 	Page cache
+mm/swapfile.c 	Swap area management
+mm/oom_kill.c 	OOM killer, victim selection
+kernel/fork.c 	Process creation, dup_mm()
+include/linux/gfp.h 	GFP flags definitions
+Further Reading
+Free Resources
+
+    Bonwick, The Slab Allocator (1994) - Original slab paper from USENIX
+    Gorman, Understanding the Linux Virtual Memory Manager - Free online book
+
+Kernel Documentation
+
+    Documentation/mm/ in the kernel tree
+    Documentation/admin-guide/mm/ for sysadmin perspective
+
+Textbooks
+
+    Silberschatz et al., Operating System Concepts - Ch. 9-10 (Memory)
+    Tanenbaum & Bos, Modern Operating Systems - Ch. 3 (Memory Management)
+    Love, Linux Kernel Development - Ch. 12 (Memory Management)
+

@@ -86,7 +86,7 @@ def visualize_graph(G, partition, output_filename="graph_visualization.html"):
 
 
 def run_graph_rag():
-    print("[*] Побудова графа знань та виконання GraphRAG через Ollama (gemma4:e2b)...")
+    print("[*] Побудова графа знань та виконання GraphRAG через Ollama (gemma4:e4b)...")
 
     if not os.path.exists("facts.json"):
         print("[!] Файл facts.json не знайдено. Спочатку запустіть extract.py.")
@@ -132,23 +132,23 @@ def run_graph_rag():
 
         prompt = (
             f"Заборонено писати процес міркувань, внутрішні думки чи роздуми. Видавай лише фінальний результат або відповідь. "
-            f"Зроби стисле резюме наступної спільноти сутностей у графі знань Smart City:\n"
+            f"Зроби стисле резюме наступної спільноти сутностей у графі знань документації про ядро Linux:\n"
             f"Сутності: {', '.join(nodes)}\n"
             f"Зв'язки:\n" + "\n".join(subgraph_edges)
         )
 
         def _make_summary_call():
             response = chat(
-                model="gemma4:e2b",
+                model="gemma4:e4b",
                 messages=[{"role": "user", "content": prompt}],
-                options={"temperature": 0.1, "num_predict": 127000},
+                options={"temperature": 0.1, "num_predict": 128000},
             )
             return response.message.content
 
         summary_text = call_ollama_with_retry(_make_summary_call)
         community_summaries.append(f"Спільнота {comm_id}: {summary_text}")
 
-    global_question = "Які ключові організації та технології задіяні в ініціативах Smart City і як вони пов'язані між собою?"
+    global_question = "Які ключові сутності та технології задіяні в роботі Linux і як вони пов'язані між собою?"
 
     map_reduce_prompt = (
         f"Глобальне запитання: {global_question}\n\n"
@@ -158,9 +158,9 @@ def run_graph_rag():
 
     def _make_final_call():
         response = chat(
-            model="gemma4:e2b",
+            model="gemma4:e4b",
             messages=[{"role": "user", "content": map_reduce_prompt}],
-            options={"num_predict": 127000},
+            options={"num_predict": 128000},
         )
         return response.message.content
 

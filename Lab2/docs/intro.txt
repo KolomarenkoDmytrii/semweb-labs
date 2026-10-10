@@ -1,0 +1,74 @@
+Linux Kernel Internals
+
+A community hub for understanding the Linux kernel — documentation and discussions about design decisions, internals, and the journey of contributing.
+What This Is
+
+Documentation: Deep dives into kernel subsystems, explaining why things work the way they do, not just the APIs.
+
+The kernel has extensive API documentation, but understanding the rationale requires digging through mailing list archives, scattered articles, and tribal knowledge. We're building a more accessible resource.
+Documentation
+
+Subsystems
+
+Foundations
+
+    Kernel Internals (kernel/) — the glue that holds every subsystem together: boot, logging, parameters, panics, and module init
+    Architecture (arch/) — where the kernel meets the hardware: boot, CPU features, exceptions, and per-arch specifics (x86, arm64)
+    System Calls (syscalls/) — how user space crosses into the kernel and back
+    Modules (modules/) — loading, linking, and unloading kernel code at runtime
+    Time (time/) — clocks, timers, ticks, and how the kernel keeps and measures time
+
+Memory
+
+    Memory Management (mm/) — how the kernel allocates, maps, and reclaims physical and virtual memory
+    IOMMU (iommu/) — address translation and isolation between devices and memory
+
+Scheduling & Concurrency
+
+    Scheduler (sched/) — how the kernel decides which task runs next, and when
+    Locking (locking/) — the primitives that keep concurrent code correct: spinlocks, mutexes, RCU
+    Interrupts (interrupts/) — handling hardware events and safely deferring work
+    IPC (ipc/) — how processes communicate: pipes, signals, shared memory, message queues
+
+Storage & I/O
+
+    VFS (vfs/) — the abstraction that lets one API drive every filesystem
+    Filesystems (filesystems/) — how on-disk formats and the page cache turn bytes into files
+    Block Layer (block/) — the path from a filesystem request to a physical device
+    I/O Patterns (io/) — buffered vs. direct, sync vs. async, and the tradeoffs between them
+    io_uring (io-uring/) — the ring-based interface for high-performance asynchronous I/O
+
+Devices & Drivers
+
+    Drivers (drivers/) — the device model and how drivers bind to hardware
+    USB (usb/) — the host-scheduled, hot-pluggable peripheral bus: descriptors, endpoints, and URBs
+    GPU / DRM (drm/) — the graphics and display stack: KMS modesetting, GEM buffers, and command submission
+
+Networking & BPF
+
+    Networking (net/) — the journey of a packet through the stack, from socket to wire
+    BPF (bpf/) — running sandboxed programs in the kernel for tracing, networking, and security
+
+Isolation & Security
+
+    Cgroups (cgroups/) — accounting for and limiting resources per group of processes; the basis of containers
+    Security (security/) — LSMs, capabilities, seccomp, and the kernel's access-control machinery
+    Virtualization (virtualization/) — KVM and how the kernel runs guest machines
+    Crypto (crypto/) — the kernel's cryptographic API and hardware acceleration
+    Livepatch (livepatch/) — patching a running kernel without rebooting
+
+Observability
+
+    Tracing (tracing/) — ftrace, tracepoints, and perf: seeing what the kernel is doing
+    Debugging (debugging/) — tools and techniques for diagnosing kernel problems
+    Power Management (power/) — suspend, resume, cpufreq, and idle states
+
+Community
+
+    Contributing Guide to get started as a contributor
+    GitHub Discussions for questions and conversations
+    GitHub Issues to suggest topics or report problems
+
+Disclaimer
+
+This is a community learning resource, not a definitive reference. The Linux kernel is complex and constantly evolving. While we strive for accuracy and link to primary sources (commits, LKML), errors may exist. When in doubt, consult the official kernel documentation and source code. Contributions and corrections are welcome.

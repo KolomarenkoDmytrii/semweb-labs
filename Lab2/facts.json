@@ -1,236 +1,195 @@
 {
   "facts": [
     {
-      "subject": "EcoCity Inc.",
-      "relation": "розгорнула",
-      "object": "міську мережу датчиків на базі IoT",
-      "description": "У 2024 році компанія EcoCity Inc. розгорнула міську мережу датчиків на базі IoT у Києві."
+      "subject": "IPC",
+      "relation": "used_for",
+      "object": "Processes",
+      "description": "IPC stands for Inter-Process Communication and provides mechanisms for processes to exchange data and coordinate."
     },
     {
-      "subject": "Система контролю якості повітря",
-      "relation": "функціонує",
-      "object": "в реальному часі",
-      "description": "Система контролює якість повітря в реальному часі."
+      "subject": "IPC",
+      "relation": "provides",
+      "object": "Mechanisms for data exchange and coordination",
+      "description": "The fundamental purpose of IPC mechanisms."
     },
     {
-      "subject": "Андрій Мельник",
-      "relation": "є головним інженером проєкту",
-      "object": "міської мережі IoT",
-      "description": "Головний інженер проєкту, Андрій Мельник, зазначив, що платформа працює на протоколі LoRaWAN."
+      "subject": "Signals",
+      "relation": "provides",
+      "object": "Event notification",
+      "description": "Signals communicate using event notification."
     },
     {
-      "subject": "Платформа",
-      "relation": "працює на",
-      "object": "протоколі LoRaWAN",
-      "description": "Платформа, розроблена EcoCity Inc., працює на протоколі LoRaWAN."
+      "subject": "Signals",
+      "relation": "provides_ability",
+      "object": "One-way communication",
+      "description": "Signals are defined as providing one-way communication."
     },
     {
-      "subject": "Протокол LoRaWAN",
-      "relation": "забезпечує",
-      "object": "енергоефективний зв'язок на великих відстанях",
-      "description": "Протокол LoRaWAN забезпечує енергоефективний зв'язок на великих відстанях."
+      "subject": "Signals",
+      "relation": "provides",
+      "object": "Signal number only",
+      "description": "Signals utilize only a signal number for data size."
     },
     {
-      "subject": "EcoCity Inc.",
-      "relation": "співпрацює з",
-      "object": "університетом КПІ",
-      "description": "EcoCity Inc. співпрацює з університетом КПІ для аналізу великих масивів даних."
+      "subject": "Signals",
+      "relation": "maintains_state_until",
+      "object": "Delivery",
+      "description": "The state of Signals persists until they are delivered."
     },
     {
-      "subject": "Університет КПІ",
-      "relation": "залучений до",
-      "object": "аналізу великих масивів даних",
-      "description": "Університет КПІ співпрацює з EcoCity Inc. для аналізу великих масивів даних."
+      "subject": "Pipe (anonymous)",
+      "relation": "provides",
+      "object": "Byte stream",
+      "description": "Anonymous pipes transfer data as a byte stream."
     },
     {
-      "subject": "SmartEco",
-      "relation": "реалізує проєкт",
-      "object": "у Львові",
-      "description": "Стартап SmartEco реалізує аналогічний проєкт у Львові."
+      "subject": "Pipe (anonymous)",
+      "relation": "provides_ability",
+      "object": "Unidirectional flow",
+      "description": "Pipe maintains unidirectional data flow."
     },
     {
-      "subject": "SmartEco",
-      "relation": "використовує обладнання від",
-      "object": "Cisco",
-      "description": "Стартап SmartEco використовує обладнання від Cisco."
+      "subject": "Pipe (anonymous)",
+      "relation": "provides",
+      "object": "Buffered storage (~64KB)",
+      "description": "The Pipe uses a buffered storage size of approximately 64KB."
     },
     {
-      "subject": "Андрій Мельник",
-      "relation": "консультував",
-      "object": "SmartEco",
-      "description": "Андрій Мельник раніше консультував SmartEco щодо архітектури мереж у 2022 році."
+      "subject": "Pipe (anonymous)",
+      "relation": "terminates_when",
+      "object": "Both ends close",
+      "description": "The Pipe connection persists until both ends are closed."
     },
     {
-      "subject": "Мережі IoT",
-      "relation": "генерують",
-      "object": "терабайти даних",
-      "description": "Мережі IoT генерують терабайти даних."
+      "subject": "FIFO (named pipe)",
+      "relation": "provides",
+      "object": "Byte stream",
+      "description": "FIFO (named pipe) also facilitates data exchange via a byte stream."
     },
     {
-      "subject": "Обробка даних IoT",
-      "relation": "застосовує",
-      "object": "хмарні сервіси Amazon Web Services (AWS)",
-      "description": "Для обробки терабайтів даних IoT у Києві та Львові застосовують хмарні сервіси Amazon Web Services (AWS)."
+      "subject": "FIFO (named pipe)",
+      "relation": "provides_ability",
+      "object": "Unidirectional flow",
+      "description": "FIFO maintains unidirectional data flow."
     },
     {
-      "subject": "AWS",
-      "relation": "забезпечує",
-      "object": "високу масштабованість та безпеку",
-      "description": "AWS забезпечує високу масштабованість та безпеку для обробки даних."
+      "subject": "FIFO (named pipe)",
+      "relation": "provides",
+      "object": "Buffered storage",
+      "description": "The FIFO uses buffered storage."
     },
     {
-      "subject": "Університет КПІ",
-      "relation": "підписав меморандум з",
-      "object": "AWS",
-      "description": "Університет КПІ підписав меморандум з AWS про підготовку фахівців у 2023 році."
+      "subject": "FIFO (named pipe)",
+      "relation": "persists",
+      "object": "File existence",
+      "description": "The FIFO exists and is maintained while the underlying file exists."
     },
     {
-      "subject": "Програма підготовки фахівців",
-      "relation": "координує",
-      "object": "професор Іван Ковальчук",
-      "description": "Координатором програми підготовки фахівців з хмарних технологій та ШІ став професор Іван Ковальчук."
+      "subject": "Unix socket",
+      "relation": "provides",
+      "object": "Stream or datagram",
+      "description": "Unix sockets can handle communication in stream or datagram mode."
     },
     {
-      "subject": "Системи моніторингу повітря",
-      "relation": "впливають на",
-      "object": "зниження рівня захворюваності дихальних шляхів",
-      "description": "Системи моніторингу повітря безпосередньо впливають на зниження рівня захворюваності дихальних шляхів."
+      "subject": "Unix socket",
+      "relation": "provides_ability",
+      "object": "Bidirectional communication",
+      "description": "Unix sockets allow for bidirectional communication."
     },
     {
-      "subject": "Медичний центр",
-      "relation": "підтвердив",
-      "object": "вплив систем моніторингу",
-      "description": "Дослідження медичного центру у Львові підтвердили вплив систем моніторингу повітря."
+      "subject": "Unix socket",
+      "relation": "provides",
+      "object": "Flexible data sizing",
+      "description": "Unix sockets offer flexibility in data sizing."
     },
     {
-      "subject": "Cisco та EcoCity Inc.",
-      "relation": "спільно розробляють",
-      "object": "нові стандарти безпеки для IoT-пристроїв",
-      "description": "Cisco та EcoCity Inc. спільно розробляють нові стандарти безпеки для IoT-пристроїв."
+      "subject": "Unix socket",
+      "relation": "terminates_when",
+      "object": "fd open",
+      "description": "The Unix socket connection persists while the file descriptor is open."
     },
     {
-      "subject": "Олена Шевченко",
-      "relation": "є технічним директором",
-      "object": "Cisco",
-      "description": "Олена Шевченко є технічним директором Cisco."
+      "subject": "POSIX shared memory",
+      "relation": "provides",
+      "object": "Raw memory access",
+      "description": "POSIX shared memory allows processes to access raw memory."
     },
     {
-      "subject": "Олена Шевченко",
-      "relation": "підкреслила важливість",
-      "object": "шифрування даних",
-      "description": "Технічний директор Cisco, Олена Шевченко, підкреслила важливість шифрування даних."
+      "subject": "POSIX shared memory",
+      "relation": "provides_ability",
+      "object": "Bi-directional data sharing",
+      "description": "It enables both ways of accessing and sharing memory."
     },
     {
-      "subject": "Smart City ініціативи в Україні",
-      "relation": "фінансуються",
-      "object": "міжнародними фондами",
-      "description": "Розробка Smart City ініціатив в Україні фінансується міжнародними фондами."
+      "subject": "POSIX shared memory",
+      "relation": "allows",
+      "object": "Arbitrary data sizing",
+      "description": "Shared memory supports arbitrary data sizes."
     },
     {
-      "subject": "Європейський банк реконструкції та розвитку (ЄБРР)",
-      "relation": "підтримав",
-      "object": "проєкти у Києві",
-      "description": "Європейський банк реконструкції та розвитку (ЄБРР) підтримав проєкти у Києві у 2023 році."
+      "subject": "POSIX shared memory",
+      "relation": "terminates_when",
+      "object": "shm_unlink",
+      "description": "Shared memory persists until the shm_unlink operation is called."
     },
     {
-      "subject": "IoT мережі",
-      "relation": "генерують",
-      "object": "терабайти даних",
-      "description": "Мережі IoT генерують терабайти даних."
+      "subject": "POSIX message queue",
+      "relation": "provides",
+      "object": "Typed messages",
+      "description": "POSIX message queue manages communication via typed messages."
     },
     {
-      "subject": "Київ та Львів",
-      "relation": "застосовують",
-      "object": "хмарні сервіси AWS",
-      "description": "У Києві та Львові застосовують хмарні сервіси Amazon Web Services (AWS)."
+      "subject": "POSIX message queue",
+      "relation": "provides_ability",
+      "object": "Bi-directional messaging",
+      "description": "Message queues support bidirectional message flow."
     },
     {
-      "subject": "LoRaWAN",
-      "relation": "забезпечує",
-      "object": "енергоефективний зв'язок",
-      "description": "Протокол LoRaWAN забезпечує енергоефективний зв'язок на великих відстанях."
+      "subject": "POSIX message queue",
+      "relation": "size_limit",
+      "object": "max_msg_size",
+      "description": "The maximum size of a single message is defined by max_msg_size."
     },
     {
-      "subject": "EcoCity Inc.",
-      "relation": "взаємодіє з",
-      "object": "університетом КПІ",
-      "description": "EcoCity Inc. співпрацює з університетом КПІ для аналізу великих масивів даних."
+      "subject": "POSIX message queue",
+      "relation": "terminates_when",
+      "object": "mq_unlink",
+      "description": "The message queue persists until the mq_unlink operation is called."
     },
     {
-      "subject": "Андрій Мельник",
-      "relation": "був консультантом для",
-      "object": "SmartEco",
-      "description": "Андрій Мельник був консультантом SmartEco щодо архітектури мереж у 2022 році."
+      "subject": "eventfd",
+      "relation": "provides",
+      "object": "Counter + notification system",
+      "description": "eventfd utilizes a combination of a counter and notification mechanism."
     },
     {
-      "subject": "Мережі IoT",
-      "relation": "потребують обробки",
-      "object": "великих масивів даних",
-      "description": "Мережі IoT генерують терабайти даних, які потребують обробки."
+      "subject": "eventfd",
+      "relation": "provides_ability",
+      "object": "Bi-directional event signaling",
+      "description": "eventfd allows for two-way event signaling."
     },
     {
-      "subject": "AWS",
-      "relation": "забезпечує",
-      "object": "масштабованість",
-      "description": "AWS забезпечує високу масштабованість для обробки даних."
+      "subject": "eventfd",
+      "relation": "provides",
+      "object": "8-byte counter capacity",
+      "description": "The eventfd mechanism is limited to an 8-byte counter."
     },
     {
-      "subject": "AWS",
-      "relation": "забезпечує",
-      "object": "безпеку",
-      "description": "AWS забезпечує високу безпеку для обробки даних."
+      "subject": "eventfd",
+      "relation": "terminates_when",
+      "object": "All fds closed",
+      "description": "The eventfd persists until all associated file descriptors are closed."
     },
     {
-      "subject": "Cisco",
-      "relation": "спільно розробляє",
-      "object": "стандарти безпеки IoT",
-      "description": "Cisco та EcoCity Inc. спільно розробляють нові стандарти безпеки для IoT-пристроїв."
+      "subject": "signalfd",
+      "relation": "provides",
+      "object": "Signal representation as fd",
+      "description": "signalfd represents a signal as a file descriptor."
     },
     {
-      "subject": "Меморандум",
-      "relation": "затверджено між",
-      "object": "Університетом КПІ та AWS",
-      "description": "Університет КПІ підписав меморандум з AWS у 2023 році."
-    },
-    {
-      "subject": "Професор Іван Ковальчук",
-      "relation": "є координатором",
-      "object": "програми з хмарних технологій та ШІ",
-      "description": "Професор Іван Ковальчук координує програму підготовки фахівців з хмарних технологій та штучного інтелекту."
-    },
-    {
-      "subject": "Системи моніторингу повітря",
-      "relation": "впливають на здоров'я",
-      "object": "зниження захворюваності дихальних шляхів",
-      "description": "Системи моніторингу повітря впливають на зниження рівня захворюваності дихальних шляхів."
-    },
-    {
-      "subject": "Міжнародні фонди",
-      "relation": "фінансують",
-      "object": "Smart City ініціативи",
-      "description": "Міжнародні фонди фінансують ініціативи Smart City в Україні."
-    },
-    {
-      "subject": "ЄБРР",
-      "relation": "підтримав",
-      "object": "проєкти в Києві",
-      "description": "Європейський банк реконструкції та розвитку (ЄБРР) підтримав проєкти у Києві у 2023 році."
-    },
-    {
-      "subject": "IoT датчики",
-      "relation": "застосовуються",
-      "object": "у Києві",
-      "description": "Міська мережа датчиків на базі IoT розгорнута у Києві."
-    },
-    {
-      "subject": "Протокол LoRaWAN",
-      "relation": "забезпечує",
-      "object": "енергоефективність",
-      "description": "Протокол LoRaWAN забезпечує енергоефективність зв'язку."
-    },
-    {
-      "subject": "Облачні сервіси",
-      "relation": "використовуються для"
+      "subject": "signalfd",
+      "relation": "provides_ability",
+      "object": "One-"
     }
   ]
 }

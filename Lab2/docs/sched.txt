@@ -1,0 +1,57 @@
+Scheduler
+
+    How Linux decides which task runs next
+
+The Linux scheduler is responsible for deciding which task runs on each CPU at any given moment. It balances competing requirements: fairness between tasks, low latency for interactive work, high throughput for batch jobs, and determinism for real-time processes.
+Structure of this section
+Fundamentals
+
+    Scheduler Evolution — From O(1) to CFS to EEVDF
+    Scheduler Classes — The five scheduling policies and how they're layered
+    CFS: Completely Fair Scheduler — vruntime, the red-black tree, and weighted fairness
+    EEVDF Scheduler — Virtual deadlines, eligibility, and replacing CFS
+    sched_ext (BPF Scheduling) — The sixth scheduler class: BPF-programmable policy, merged in 6.12
+    Runqueues and Task Selection — Per-CPU runqueues and how tasks are picked
+
+Lifecycle
+
+    Life of a Context Switch — What happens inside __schedule()
+    What Happens When a Process Wakes Up — Wakeup path and scheduler placement
+    What Happens When You fork() — How new tasks enter the scheduler
+
+Real-Time
+
+    RT Scheduler — SCHED_FIFO, SCHED_RR, and the RT runqueue
+    SCHED_DEADLINE — CBS and admission control
+    Priority Inversion and PI Mutexes — The problem and the solution
+
+Resource Control
+
+    CPU cgroup v1 vs v2 — shares, quota, and the hierarchy difference
+    CPU Bandwidth Control — CFS bandwidth throttling
+    cpuset — CPU and NUMA node affinity via cgroups
+
+Topology
+
+    Scheduler Domains and Load Balancing — SMT, LLC, NUMA hierarchy
+    CPU Affinity and Pinning — taskset, sched_setaffinity, and when to use them
+
+Debugging
+
+    Understanding /proc/schedstat — Per-CPU and per-task scheduler statistics
+    Tracing the Scheduler — ftrace, perf sched, and scheduler events
+    Tuning for Latency vs Throughput — sysctl knobs and their trade-offs
+
+War Stories
+
+    Scheduler War Stories — Real CVEs, performance regressions, and one unresolved heuristic tension
+
+Key source files
+File 	What it does
+kernel/sched/core.c 	__schedule(), context_switch(), wake_up_process()
+kernel/sched/fair.c 	CFS and EEVDF implementation
+kernel/sched/rt.c 	RT scheduler
+kernel/sched/deadline.c 	SCHED_DEADLINE
+kernel/sched/sched.h 	Core data structures: struct rq, struct sched_class, struct cfs_rq
+include/linux/sched.h 	struct task_struct, struct sched_entity
+
