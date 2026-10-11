@@ -1,0 +1,591 @@
+(venv) sh-5.3$ python pipeline.py 
+=== ПОЧАТОК ВИКОНАННЯ ЛАБОРАТОРНОЇ РОБОТИ №02 ===
+=== 1. Екстракція фактів ===
+[*] Екстракція даних з intro.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з kernel.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з arch.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з syscalls.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з modules.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з time.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з mm.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з iommu.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з sched.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[*] Екстракція даних з locking.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[*] Екстракція даних з interrupts.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[*] Екстракція даних з ipc.txt
+[*] Виконання LLM-екстракції фактів через Ollama (модель gemma4:e4b)...
+[!] Увага: JSON було обірвано. Застосовується автовиправлення (json_repair)...
+[+] Екстракцію завершено. Збережено факти у файл facts.json.
+=== 2. Векторний пошук ===
+[*] Ініціалізація векторної бази даних ChromaDB та генерація ембедингів через Ollama (embeddinggemma-2:440m)...
+[*] Виконання пошуку за ключовими словами
+
+--- [Пошуковий запит]: spinlock_t ---
+
+--- Результати пошуку за ключовими словами ---
+ - raw_spinlock_t       No      Yes     Must not sleep, IRQ context
+ - spinlock_t   No (RT: yes)    No      Process context, short critical sections
+==========
+
+--- [Пошуковий запит]: kernel module is ---
+
+--- Результати пошуку за ключовими словами ---
+ - A kernel module is an ELF shared object loaded into the kernel at runtime. Modules:
+==========
+
+--- [Пошуковий запит]: memory management is ---
+
+--- Результати пошуку за ключовими словами ---
+==========
+[*] Виконання векторного пошуку
+
+--- [Пошуковий запит]: 'Які примітиви є для багатопроцесорності?' ---
+
+--- Результати векторного пошуку ---
+ - 
+IPC: Inter-Process Communication
+
+    Mechanisms for processes to exchange data and coordinate
+
+IPC mechanisms overview
+Mechanism       Communication   Direction       Data size       Persistence
+Signals         Event notification      One-way         Signal number only      Until delivered
+Pipe (anonymous)        Byte stream     Unidirectional  Buffered (~64KB)        Until both ends close
+FIFO (named pipe)       Byte stream     Unidirectional  Buffered        While file exists
+Unix socket     Stream or datagram      Bidirectional   Flexible        While fd open
+POSIX shared memory     Raw memory      Both    Arbitrary       Until shm_unlink
+POSIX message queue     Typed messages  Both    max_msg_size    Until mq_unlink
+eventfd         Counter + notification  Both    8-byte counter  Until all fds closed
+signalfd        Signal as fd    One-way         siginfo_t       While fd open
+Pages in this section
+Page    What it covers
+Signals         Signal delivery, sigaction, masks, real-time signals
+Pipes and FIFOs         Pipe internals, splice, vmsplice
+Shared Memory and Semaphores    POSIX shm, SysV shm, semaphores, eventfd
+Unix Domain Sockets     SOCK_SEQPACKET, abstract namespace, SCM_RIGHTS, SO_PEERCRED
+SysV IPC: Semaphores and Message Queues         semget/semop, msgget/msgsnd, SEM_UNDO, leak prevention
+IPC War Stories         Leaked semaphores, fd exhaustion, signal storms, pipe surprises
+Back to top
+
+
+ - Locking and Synchronization
+
+    How the Linux kernel serializes concurrent access to shared data
+
+Why locking matters
+
+Linux runs on systems with hundreds of CPUs, all sharing kernel data structures. Without synchronization, two CPUs could simultaneously modify a linked list — corrupting its pointers, losing entries, or looping forever. Locking prevents this.
+
+The kernel provides a rich set of primitives, each with different performance characteristics and usage contexts:
+Primitive       Sleeps?         IRQ-safe?       Use when
+raw_spinlock_t  No      Yes     Must not sleep, IRQ context
+spinlock_t      No (RT: yes)    No      Process context, short critical sections
+mutex_t         Yes     No      Process context, longer critical sections
+rw_semaphore    Yes     No      Many readers, few writers
+rwlock_t        No      Yes     Many readers, IRQ context
+RCU     No (readers)    Yes (readers)   Read-heavy, pointer-based data
+seqlock_t       No      Yes     Small data, writers must not starve
+Contents
+Fundamentals
+
+    Spinlock and raw_spinlock — The atomic building block
+    Mutex and rt_mutex — Sleeping locks for process context
+    rwlock and rwsem — Reader-writer locking
+    RCU (Read-Copy-Update) — Lock-free reads via grace periods
+    Seqlock — Sequence counters for small frequently-read data
+
+Advanced
+
+    Atomic operations and memory barriers — The primitives beneath the primitives
+    Per-CPU variables — Eliminating shared state entirely
+    Lockdep — The kernel's lock validator
+    Lock contention debugging — Diagnosing lock hotspots
+    Futex internals — How userspace locking works
+
+War stories
+
+    War Stories — three CVEs and one origin story from rt_mutex and PI-futexes
+
+The hierarchy: what can nest inside what
+
+Hardware interrupts (NMI)
+    └── can only use: raw_spinlock (irqsave), atomic ops
+Hardware interrupts (IRQ)
+    └── can use: raw_spinlock (irqsave), rwlock (irqsave), seqlock
+Softirqs / tasklets
+    └── can use: spinlock (bh), rwlock (bh), RCU read side
+Process context (preemptible)
+    └── can use: everything, including mutex, semaphore, RCU
+
+Never call a sleeping lock from interrupt context — the kernel will warn or deadlock.
+
+==========
+
+--- [Пошуковий запит]: 'spinlock_t' ---
+
+--- Результати векторного пошуку ---
+ - Locking and Synchronization
+
+    How the Linux kernel serializes concurrent access to shared data
+
+Why locking matters
+
+Linux runs on systems with hundreds of CPUs, all sharing kernel data structures. Without synchronization, two CPUs could simultaneously modify a linked list — corrupting its pointers, losing entries, or looping forever. Locking prevents this.
+
+The kernel provides a rich set of primitives, each with different performance characteristics and usage contexts:
+Primitive       Sleeps?         IRQ-safe?       Use when
+raw_spinlock_t  No      Yes     Must not sleep, IRQ context
+spinlock_t      No (RT: yes)    No      Process context, short critical sections
+mutex_t         Yes     No      Process context, longer critical sections
+rw_semaphore    Yes     No      Many readers, few writers
+rwlock_t        No      Yes     Many readers, IRQ context
+RCU     No (readers)    Yes (readers)   Read-heavy, pointer-based data
+seqlock_t       No      Yes     Small data, writers must not starve
+Contents
+Fundamentals
+
+    Spinlock and raw_spinlock — The atomic building block
+    Mutex and rt_mutex — Sleeping locks for process context
+    rwlock and rwsem — Reader-writer locking
+    RCU (Read-Copy-Update) — Lock-free reads via grace periods
+    Seqlock — Sequence counters for small frequently-read data
+
+Advanced
+
+    Atomic operations and memory barriers — The primitives beneath the primitives
+    Per-CPU variables — Eliminating shared state entirely
+    Lockdep — The kernel's lock validator
+    Lock contention debugging — Diagnosing lock hotspots
+    Futex internals — How userspace locking works
+
+War stories
+
+    War Stories — three CVEs and one origin story from rt_mutex and PI-futexes
+
+The hierarchy: what can nest inside what
+
+Hardware interrupts (NMI)
+    └── can only use: raw_spinlock (irqsave), atomic ops
+Hardware interrupts (IRQ)
+    └── can use: raw_spinlock (irqsave), rwlock (irqsave), seqlock
+Softirqs / tasklets
+    └── can use: spinlock (bh), rwlock (bh), RCU read side
+Process context (preemptible)
+    └── can use: everything, including mutex, semaphore, RCU
+
+Never call a sleeping lock from interrupt context — the kernel will warn or deadlock.
+
+ - Time Subsystem
+
+    Timekeeping, clocksources, and timers in the Linux kernel
+
+The time stack
+
+User space
+  clock_gettime(CLOCK_MONOTONIC)     timer_create()     timerfd_create()
+        │                                  │                   │
+        ▼                                  ▼                   ▼
+  vDSO (userspace page, no syscall)   POSIX timers        timerfd
+        │                                  │                   │
+        └──────────────┬───────────────────┘                   │
+                       ▼                                       │
+             Timekeeping core                                   │
+             (kernel/time/timekeeping.c)                        │
+             struct timekeeper                                  │
+                       │                                        │
+             ┌─────────┴──────────┐                            │
+             ▼                    ▼                             │
+       Clocksource           Clockevent                        │
+       (read counter)        (program interrupt)               │
+       TSC / HPET            HPET / LAPIC / ARM              hrtimer
+                                    │                           │
+                              tick_device                  hrtimer_cpu_base
+                              tick_sched                        │
+                                    │                           │
+                             Scheduler tick              High-res callback
+                             NOHZ idle                   (on clockevent IRQ)
+
+Pages in this section
+Page    What it covers
+Timekeeping     clocksources, TSC, NTP, struct timekeeper, vDSO
+hrtimers        High-resolution timers, CLOCK_MONOTONIC/REALTIME, timer slack
+POSIX timers    timer_create, clock_nanosleep, timerfd, epoll integration
+The Timer Wheel         jiffies, struct timer_list, hierarchical wheel, deferrable timers
+NTP and Clock Discipline        adjtimex, PLL/FLL, leap seconds, TAI offset, chrony/ntpd
+Time Namespaces         CLONE_NEWTIME, CLOCK_MONOTONIC isolation, CRIU use case
+War Stories     TSC drift, leap second thundering herd, timer_delete vs timer_delete_sync race, jiffies wraparound
+Quick reference
+
+# Available clocksources (current in brackets)
+cat
+ /sys/devices/system/clocksource/clocksource0/available_clocksource
+# tsc-early tsc hpet acpi_pm
+
+cat
+ /sys/devices/system/clocksource/clocksource0/current_clocksource
+# tsc
+
+# TSC frequency
+dmesg
+ | grep "TSC.*MHz"
+# tsc: Detected 3600.000 MHz processor
+
+# Timer resolution
+clock_getres
+(CLOCK_MONOTONIC) → 1 ns on most x86 systems
+
+# hrtimer mode
+dmesg
+ | grep "hrtimer"
+# Switched to high resolution mode on CPU 0
+
+# System time offset (NTP)
+timedatectl
+# NTP synchronized: yes
+
+
+==========
+
+--- [Пошуковий запит]: 'memory management is' ---
+
+--- Результати векторного пошуку ---
+ - Memory Management (mm/)
+
+    How Linux manages the most fundamental resource: memory
+
+Getting Started
+
+This documentation explains how Linux manages memory - not just the theory, but the actual implementation decisions, trade-offs, and lessons learned over 30+ years of development.
+Prerequisites
+
+This documentation assumes familiarity with:
+
+    C programming - The kernel is written in C
+    Pointers and memory addresses - Virtual vs physical addressing
+    Basic OS concepts - Processes, kernel vs userspace
+
+If you've covered virtual memory and paging, that's a good foundation. See Further Reading for recommended textbooks.
+Getting the Kernel Source
+
+git
+ clone https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+cd linux
+
+For building and configuration, see Documentation/admin-guide/README.rst.
+Running Tests
+
+The fastest way to test kernel changes without rebooting your machine:
+
+# Install virtme-ng (runs kernel in QEMU with your filesystem)
+pip
+ install virtme-ng
+
+# Build and boot with a test module
+virtme-ng
+ --kdir . --append 'test_vmalloc.run_test_mask=0xFFFF'
+
+# Check results
+# (dmesg output appears in the virtual console)
+
+For comprehensive testing documentation, see Documentation/dev-tools/testing-overview.rst.
+Suggested Reading Order
+
+Fundamentals:
+
+    Overview - The narrative of how mm/ evolved
+    Page Allocator - Buddy system fundamentals
+    Slab - SLUB allocator for small objects
+    vmalloc - Virtual memory allocation
+
+Address Translation & Process Memory:
+
+    Page Tables - Virtual address translation
+    The Kernel Address Space - Direct map, vmemmap, vmalloc space, KASLR
+    Process Address Space - VMAs, mmap, demand paging
+
+Memory Pressure & Reclaim:
+
+    Page Reclaim - LRU, kswapd, MGLRU
+    Swap - Extending memory to disk
+    Page Cache - File data caching
+
+Advanced Topics:
+
+    Memory Cgroups - Container memory limits
+    NUMA - Multi-node memory management
+    Transparent Huge Pages - Automatic huge pages
+    Compaction - Memory defragmentation
+    KSM - Page deduplication for VMs
+
+End-to-End Walkthroughs:
+
+After the fundamentals, these trace operations through the entire stack:
+
+    Life of a malloc - From userspace to physical page
+    Life of a page - Allocation through reclaim
+    What happens when you fork - COW mechanics
+    Running out of memory - The path to OOM kill
+    Life of a file read - Page cache in action
+    What happens during swapping - Swap-out and swap-in
+
+What You'll Learn
+Textbook Concept        Linux Reality
+"malloc allocates memory"       No - it reserves address space. Physical pages come later via demand paging
+"fork copies process memory"    Copy-on-write means pages are shared until written
+"Page tables map virtual to physical"   Multi-level page tables, TLB flushing costs, lazy creation
+"Memory allocator"      Multiple allocators for different use cases (slab, vmalloc, buddy)
+"Fragmentation"         Why physically contiguous memory is hard, vmalloc as a solution
+"Memory is finite"      Watermarks, kswapd, direct reclaim, OOM killer - a progression, not a cliff
+"Reading files hits disk"       Page cache means most reads are from memory
+"Swap is slow"  Swap mechanics - understand when and why it hurts
+What Makes This Different
+
+    Real commits: Every claim links to actual kernel commits
+    Real bugs: Learn from what broke and why
+    Real discussions: Links to LKML where decisions were debated
+    Real trade-offs: Not just "what" but "why this and not that"
+    Hands-on: "Try It Yourself" sections with commands to run and code to read
+
+Documentation
+Core Reading
+Document        What You'll Learn
+overview        The 30-year story of Linux memory management
+page-allocator  Buddy system - physical page management
+slab    SLUB - small object allocation
+vmalloc         Virtually contiguous allocation
+vrealloc        Resizing allocations
+page-tables     Virtual address translation
+kernel-address-space    The kernel half: direct map, vmemmap, KASLR
+reclaim         What happens under memory pressure
+memcg   Container memory limits
+thp     Transparent Huge Pages - automatic 2MB pages
+numa    NUMA memory policies and balancing
+compaction      Memory defragmentation for large allocations
+ksm     Kernel Same-page Merging - memory deduplication
+mmap    Process address space and VMAs
+page-cache      File data caching in memory
+swap    Extending memory to disk
+Lifecycle
+
+Narrative walkthroughs following memory operations end-to-end:
+Document        What You'll Learn
+life-of-malloc  Tracing malloc() from userspace to physical pages
+life-of-page    A physical page's journey through allocation, use, and reclaim
+fork    COW setup, page table copying, and COW fault handling
+oom     Watermarks, kswapd, direct reclaim, and OOM killer
+life-of-read    How read() flows through the page cache
+swapping        Swap-out and swap-in mechanics in detail
+Explainers
+
+Conceptual guides for common memory management questions:
+Document        What You'll Learn
+virtual-physical-resident       VSZ vs RSS vs PSS vs USS - why memory numbers don't add up
+overcommit      Why overcommit is the only sane default
+brk-vs-mmap     Two ways to get memory from the kernel
+contiguous-memory       Why large allocations fail despite free memory
+cow     Copy-on-write edge cases and when it breaks
+Kernel Bugs & CVEs
+
+Analysis of notable Linux kernel vulnerabilities, data corruption bugs, and edge cases:
+Document        What You'll Learn
+Bug Index       Catalog of all mm bugs by severity, year, and subsystem
+SLUB Bugs       Heap exploitation (CVE-2021-22555, CVE-2022-29582)
+THP Bugs        khugepaged races, COW issues (CVE-2020-29368)
+Page Table Bugs         Meltdown, Spectre, TLB flush races
+Key Source Files
+
+If you want to read the actual code:
+File    What It Does
+mm/page_alloc.c         Buddy allocator - physical page management
+mm/slub.c       SLUB allocator - small object caches
+mm/vmalloc.c    vmalloc - virtually contiguous allocation
+mm/vmscan.c     Memory reclaim under pressure
+mm/memcontrol.c         Memory cgroups
+mm/huge_memory.c        Transparent Huge Pages
+mm/mempolicy.c  NUMA memory policies
+mm/compaction.c         Memory compaction
+mm/ksm.c        Kernel Same-page Merging
+mm/mmap.c       Process address space, VMAs
+mm/filemap.c    Page cache
+mm/swapfile.c   Swap area management
+mm/oom_kill.c   OOM killer, victim selection
+kernel/fork.c   Process creation, dup_mm()
+include/linux/gfp.h     GFP flags definitions
+Further Reading
+Free Resources
+
+    Bonwick, The Slab Allocator (1994) - Original slab paper from USENIX
+    Gorman, Understanding the Linux Virtual Memory Manager - Free online book
+
+Kernel Documentation
+
+    Documentation/mm/ in the kernel tree
+    Documentation/admin-guide/mm/ for sysadmin perspective
+
+Textbooks
+
+    Silberschatz et al., Operating System Concepts - Ch. 9-10 (Memory)
+    Tanenbaum & Bos, Modern Operating Systems - Ch. 3 (Memory Management)
+    Love, Linux Kernel Development - Ch. 12 (Memory Management)
+
+
+ - IOMMU and DMA
+
+    Hardware address translation and memory protection for devices
+
+Why IOMMU?
+
+Without an IOMMU, a DMA-capable device can access any physical memory — a compromised network card can read or overwrite kernel memory. The IOMMU sits between the PCIe bus and physical memory, translating device I/O virtual addresses (IOVAs) to physical addresses and enforcing access permissions.
+
+Without IOMMU:
+  Device → physical memory (unrestricted)
+
+With IOMMU:
+  Device → IOVA → IOMMU translation → physical memory
+                  (checked against per-domain page tables)
+
+Beyond security, the IOMMU enables:
+
+    IOVA remapping: devices with < 64-bit address buses can DMA to high memory
+    Scatter-gather flattening: discontiguous physical pages appear contiguous to the device
+    Device passthrough (VFIO): safely assign physical devices to VMs
+
+Pages in this section
+Page    What it covers
+IOMMU Architecture      Intel VT-d, AMD-Vi, iommu_domain, IOMMU groups, VFIO
+DMA API         dma_alloc_coherent, dma_map_single/sg, swiotlb, IOVA allocation
+IOVA Allocator  iova_domain, rbtree, per-CPU rcache magazines, flush queues
+Shared Virtual Addressing       PASID, ATS, PRI, iommu_sva API, Intel DSA, ARM SMMU v3
+VFIO Internals  Container/group/device hierarchy, mdev, MSI irqfd, KVM passthrough
+IOMMU War Stories       DMAR faults, IOVA perf bottleneck, group isolation, swiotlb exhaustion
+Reading order
+
+New to IOMMU internals? Work through the pages in this order:
+
+    README — this page; why IOMMU exists, quick reference
+    IOMMU Architecture — hardware (VT-d, AMD-Vi, ARM SMMU), the kernel abstraction (iommu_domain, groups), IOTLB
+    DMA API — how drivers actually use DMA: coherent, streaming, scatter-gather, swiotlb
+    IOVA Allocator — the address allocator underneath DMA mapping; rcache and flush queue internals; performance impact
+    Shared Virtual Addressing — advanced: PASID-based VA sharing for accelerators; requires understanding of IOMMU domains
+    VFIO Internals — device passthrough architecture; page pinning, interrupt delivery, mdev
+    IOMMU War Stories — real incidents tying all the above together; good for consolidating understanding
+
+Quick reference
+
+# Check if IOMMU is active
+dmesg
+ | grep -i iommu | head -20
+# DMAR: IOMMU enabled
+# AMD-Vi: device isolation enabled
+
+# List IOMMU groups (devices that share address space)
+ls
+ /sys/kernel/iommu_groups/
+for g in /sys/kernel/iommu_groups/*/devices/*; do echo "$g"; done
+
+# Enable IOMMU at boot (kernel parameter)
+# Intel: intel_iommu=on
+# AMD:   amd_iommu=on
+# Both:  iommu=pt (passthrough — no translation, just groups)
+
+# VFIO: bind a device for VM passthrough
+echo "8086 1521" | sudo tee /sys/bus/pci/drivers/vfio-pci/new_id
+echo "0000:01:00.0" | sudo tee /sys/bus/pci/devices/0000:01:00.0/driver/unbind
+echo "0000:01:00.0" | sudo tee /sys/bus/pci/drivers/vfio-pci/bind
+
+
+==========
+=== 3. Граф знань та GraphRAG ===
+[*] Побудова графа знань та виконання GraphRAG через Ollama (gemma4:e4b)...
+DEBUG: len(facts)=32
+[+] Граф побудовано: Вузлів = 39, Ребер = 32
+[+] Виявлено спільнот: 8
+[*] Генерація інтерактивної візуалізації графа (graph_visualization.html)...
+graph_visualization.html
+[+] Візуалізацію успішно збережено у файл: graph_visualization.html
+
+--- ФІНАЛЬНА ВІДПОВІДЬ (GraphRAG з Ollama) ---
+Ця відповідь сформована на основі аналізу спільнот графа знань та фокусується на механізмах міжпроцесного зв'язку (Inter-Process Communication, IPC), оскільки саме вони становлять ядро взаємодії процесів у операційній системі Linux.
+
+---
+
+## Ключові сутності та технології в роботі Linux: Механізми IPC
+
+Взаємодія процесів, обмін даними та координація їхньої роботи є фундаментальним елементом функціонування Linux. Ключові сутності та технології, описані в наданих спільнотах, утворюють складну архітектуру механізмів IPC.
+
+**Основна сутність:** **IPC (міжпроцесний зв'язок)**.
+IPC є глобальним механізмом, що забезпечує координацію та обмін даними між різними процесами (Спільнота 0). Усі описані нижче технології є специфічними реалізаціями цієї загальної функції.
+
+### I. Технології для потокового та структурованого обміну даними
+
+Ці механізми дозволяють процесам передавати об'єкти або потоки даних, що можуть бути як неструктурованими (потоки байтів), так і форматованими (повідомлення).
+
+| Технологія | Призначення | Характеристики | Життєвий цикл |
+| :--- | :--- | :--- | :--- |
+| **Пайпи (Pipes)** (Спільнота 2) | Односпрямований потік байтів. | Обмін даними відбувається через внутрішнє **буфероване сховище** (близько 64 КБ). | **Анонімний:** Тимчасовий; існує лише до закриття обох кінців. **FIFO (Іменований):** Стійкий; існує до виклику відповідної операції. |
+| **Unix Sockets** (Спільнота 4) | Двонаправлена комунікація. | Підтримує гнучкість розміру даних та режими передачі (потоковий або датаграмовий). | З'єднання підтримується до моменту закриття файлового дескриптора (`fd open`). |
+| **POSIX Message Queue** (Спільнота 6) | Структурований обмін повідомленнями. | Використовує **Typed messages** та підтримує двосторонній обмін. | Обмежений максимальним розміром повідомлення (`max_msg_size`). Його існування гарантується до виклику `mq_unlink`. |
+
+### II. Технології для прямого доступу та координації
+
+Ці механізми надають процесам найпряміші способи взаємодії — через спільну пам'ять або через механізми сигналізації.
+
+#### 1. Спільна пам'ять (Shared Memory)
+**POSIX Shared Memory** (Спільнота 5) дозволяє процесам мати прямий доступ до одних і тих самих сирих адрес пам'яті.
+*   **Перевага:** Це найшвидший спосіб обміну даними, оскільки не вимагає копіювання даних між просторами адрес.
+*   **Характеристики:** Підтримує двосторонній обмін та произвольний розмір даних.
+*   **Життєвий цикл:** Керується операцією `shm_unlink`.
+
+#### 2. Сигналізація та Події (Signaling and Events)
+Ці механізми використовуються для **координації** процесами, дозволяючи їм повідомляти про певні події.
+
+*   **Signals (Сигнали)** (Спільнота 1): Це механізм **одностороннього** зв'язку, який використовує лише номер сигналу для передачі даних. Сповіщення залежить від системи доставки (`Delivery`).
+*   **`eventfd`** (Спільнота 7): Механізм сигналізації, що поєднує лічильник і систему сповіщень. Він забезпечує двосторонню сигналізацію, хоча є обмежений 8-байтовою ємністю лічильника.
+*   **`signalfd`** (Спільнота 3): Розширює функціональність, дозволяючи представляти сигнали у вигляді **файлових дескрипторів**.
+
+### III. Взаємозв'язок між сутностями та технологіями
+
+Ключова ідея полягає в тому, що хоча кожен механізм має свою функціональність, вони всі є інструментами реалізації єдиного принципу IPC.
+
+1.  **Файлова система та IPC:** Іменовані пайпи (FIFO) та Unix sockets використовують файлову систему як основу свого механізму існування та ідентифікації, тоді як `signalfd` інтегрує сигнали саме у простір файлових дескрипторів.
+2.  **Різниця між Потоком та Об'єктом:**
+    *   **Пайпи** та **Unix Sockets** працюють на принципі *потоку байтів*, що є послідовною передачею.
+    *   **POSIX Message Queue** та **Shared Memory** дозволяють обмінюватися *структурованими об'єктами* або отримувати прямий доступ до даних, що забезпечує більшу гнучкість форматування.
+3.  **Координація та Дані:** Сигнали та `eventfd` слугують як **система координації** (повідомлення "що сталося"), яка може ініціювати дії або передачу даних через інші механізми (наприклад, закриття пайпу або зміну стану процесу).
+4.  **Основа IPC:** Усі механізми використовують **ядро Linux** для управління життєвим циклом, забезпечення буферизації (пайпи) та управління дозволами доступу (shared memory, Unix sockets).
+
+### Узагальнений висновок
+
+Linux використовує **многовекторний підхід** до забезпечення міжпроцесного зв'язку. Він надає розробникам широкий вибір інструментів:
+
+*   Для **максимальної швидкості** — **POSIX Shared Memory**.
+*   Для **іменованої та стійкої комунікації** — **FIFO Pipes** та **Unix Sockets**.
+*   Для **координації та одностороннього сповіщення** — **Signals, eventfd, сигнальні файлові дескриптори**.
+*   Для **структурованого та надійного обміну** — **POSIX Message Queue**.
+
+Це інтеграція різноманітних механізмів дозволяє Linux бути надзвичайно гнучкою та потужною платформою для складних багатопроцесорних завдань.
+
+[+] Фінальну відповідь також збережено у файл summary.md
+
+=== УСПІШНО ЗАВЕРШЕНО ВСІ ЕТАПИ ПАЙПЛАЙНУ ===
+
