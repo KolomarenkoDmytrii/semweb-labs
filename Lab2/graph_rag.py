@@ -2,10 +2,15 @@ import json
 import os
 import time
 import random
+from pathlib import Path
+
 import community as community_louvain
 import networkx as nx
 from ollama import chat
 from pyvis.network import Network
+
+from ollama import embed
+import chromadb
 
 
 def call_ollama_with_retry(
@@ -25,6 +30,14 @@ def call_ollama_with_retry(
             )
             time.sleep(sleep_time)
             delay *= 2
+
+
+def get_embedding(text):
+    def _make_call():
+        response = embed(model="embeddinggemma:300m", input=text)
+        return response["embeddings"][0]
+
+    return call_ollama_with_retry(_make_call)
 
 
 def visualize_graph(G, partition, output_filename="graph_visualization.html"):
@@ -86,7 +99,7 @@ def visualize_graph(G, partition, output_filename="graph_visualization.html"):
 
 
 def run_graph_rag():
-    print("[*] Побудова графа знань та виконання GraphRAG через Ollama (gemma4:e4b)...")
+    print("[*] === Побудова графа знань та виконання GraphRAG через Ollama (gemma4:e4b)... ===")
 
     if not os.path.exists("facts.json"):
         print("[!] Файл facts.json не знайдено. Спочатку запустіть extract.py.")
@@ -166,13 +179,49 @@ def run_graph_rag():
 
     final_text = call_ollama_with_retry(_make_final_call)
 
-    with open("summary.md", "w", encoding="utf-8") as summary_file:
+    with open("graph_summary.md", "w", encoding="utf-8") as summary_file:
         summary_file.write(final_text)
 
-    print("\n--- ФІНАЛЬНА ВІДПОВІДЬ (GraphRAG з Ollama) ---")
-    print(final_text)
-    print("\n[+] Фінальну відповідь також збережено у файл summary.md")
+    print("\n[+] Фінальну відповідь збережено у файл graph_summary.md")
 
+
+def run_vector_rag():
+    print("[*] === Виконання VectorRAG... ===")
+    print(
+        "[*] Ініціалізація векторної бази даних ChromaDB та генерація ембедингів через Ollama (embeddinggemma:300m)..."
+    )
+    chroma_client = chromadb.Client()
+    collection = chroma_client.get_or_create_collection(name="linux_kernel_docs")
+
+    for idx, doc in enumerate(Path("docs").iterdir()):
+        text = doc.read_text()
+        emb = get_embedding(text)
+        collection.upsert(ids=[f"doc_{idx}"], embeddings=[emb], documents=[text])
+
+    query = "Які ключові сутності та технології задіяні в роботі Linux"
+    query_emb = get_embedding(query)
+    results = collection.query(query_embeddings=[query_emb], n_results=3)["documents"][0]
+    question = f"Які ключові сутності та технології задіяні в роботі Linux і як вони пов'язані між собою? Дай відповідь на основі цих документів:\n{"\n----\n".join(results)}"
+
+    def _make_final_call():
+        response = chat(
+            model="gemma4:e4b",
+            messages=[{"role": "user", "content": question}],
+            options={"num_predict": 128000},
+        )
+        return response.message.content
+
+    final_text = call_ollama_with_retry(_make_final_call)
+
+    with open("vector_summary.md", "w", encoding="utf-8") as summary_file:
+        summary_file.write(final_text)
+
+    print("\n[+] Фінальну відповідь збережено у файл vector_summary.md")
+
+
+def run_rag():
+    run_graph_rag()
+    run_vector_rag()
 
 if __name__ == "__main__":
-    run_graph_rag()
+    run_rag()

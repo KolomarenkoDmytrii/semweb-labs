@@ -25,7 +25,7 @@ def call_ollama_with_retry(
             delay *= 2
 
 
-def get_embedding(text: str) -> list[float]:
+def get_embedding(text):
     def _make_call():
         response = embed(model="embeddinggemma:300m", input=text)
         return response["embeddings"][0]
@@ -35,7 +35,7 @@ def get_embedding(text: str) -> list[float]:
 
 def run_vector_search():
     print(
-        "[*] Ініціалізація векторної бази даних ChromaDB та генерація ембедингів через Ollama (embeddinggemma-2:440m)..."
+        "[*] Ініціалізація векторної бази даних ChromaDB та генерація ембедингів через Ollama (embeddinggemma:300m)..."
     )
     chroma_client = chromadb.Client()
     collection = chroma_client.get_or_create_collection(name="linux_kernel_docs")
